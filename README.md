@@ -33,4 +33,17 @@ In all, this query identify the top selling products in each category over the p
 
 ## Part 3
 
-![](imgs/Screenshot_685.png)
+### Geospatial Modeling Challenge
+##### Assumptions:
+1. Users provide address information including latitude and longitude. 
+2. This system is a Postgres database
+
+![](imgs/Screenshot_686.png)
+
+ - Users Table: Each user has a unique user_id. The user_name, full_name, and email columns are required and must not be NULL.
+
+- CheckinLocation Table: Each location has a unique location_id. The admin_id column is a foreign key referencing the admin_id column in the AdminBoundary table. The address_name column represents the name of the location and must not be NULL. The geom column stores the geometry of the location as a POINT.
+
+- Checkins Table: Each check-in has a unique checkin_id. The user_id column is a foreign key referencing the user_id column in the Users table. The location_id column is a foreign key referencing the location_id column in the CheckinLocation table. The checkin_time column stores the timestamp of the check-in and must not be NULL.
+
+- AdminBoundary Table: Each administrative boundary has a unique admin_id. The postal_code, city, and state columns represent the postal code, city, and state information for the administrative boundary, respectively. The geom column stores the geometry of the boundary as a POLYGON.

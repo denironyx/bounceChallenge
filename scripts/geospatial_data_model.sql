@@ -10,6 +10,8 @@ CREATE TABLE Users (
 CREATE TABLE CheckinLocation (
     location_id SERIAL PRIMARY KEY,
     address_name VARCHAR(100) NOT NULL,
+    latitude FLOAT NOT NULL
+    longitude FLOAT NOT NULL,
     geom GEOMETRY(POINT, 4326) NOT NULL
 );
 
