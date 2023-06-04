@@ -6,6 +6,7 @@ import os
 # To Do:
 # - Write a test to verify the repo we are pulling from
 # - Request error try and catch
+# - Count the number of repo fetched and exported
 
 # Step 1 - Set up headers
     # fetch github token
@@ -22,7 +23,7 @@ headers = {
 page_num = 1
 
 # Create empty list
-repos = []
+pages = []
 names = []
 forks = []
 
@@ -54,10 +55,32 @@ while True:
         print('There is a failed request! ', response.status_code)
     
     # if we find repos name in a page, append them to our list
-    repos.append(data)
+    pages.append(data)
 
     # increase the page count by 1
     page_num = page_num + 1
     
-    # Write aa fucntion
+# loop pages to check for empty pages
+for page in pages:
+    if page == []:
+        print(f"There is no repos in this page: {pages.index(page)}")
+        break
 
+# count the number of repos found
+len(pages[0])
+
+# Extract the repo names
+repo_names = []
+forks = []
+for page in pages:
+    for repo in page:
+        try:
+            repo_names.append(repo['full_name'].split("/")[1])
+            forks.append(repo['forks'])
+        except:
+            pass
+
+# create a dataframe and store the values in it
+repo_data = pd.DataFrame()
+repo_data['name'] = repo_names
+repo_data['number_of_forks'] = forks
