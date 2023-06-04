@@ -47,3 +47,7 @@ In all, this query identify the top selling products in each category over the p
 - Checkins Table: Each check-in has a unique checkin_id. The user_id column is a foreign key referencing the user_id column in the Users table. The location_id column is a foreign key referencing the location_id column in the CheckinLocation table. The checkin_time column stores the timestamp of the check-in and must not be NULL.
 
 - AdminBoundary Table: Each administrative boundary has a unique admin_id. The postal_code, city, and state columns represent the postal code, city, and state information for the administrative boundary, respectively. The geom column stores the geometry of the boundary as a POLYGON.
+
+## Part 4
+
+You will find the solution to this question as a document in the folder `reports`.
