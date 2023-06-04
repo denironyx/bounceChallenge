@@ -4,6 +4,7 @@ import pandas as pd
 import os
 
 # To Do:
+# - Create a class
 # - Write a test to verify the repo we are pulling from
 # - Request error try and catch
 # - Count the number of repo fetched and exported
@@ -24,6 +25,7 @@ page_num = 1
 
 # Create empty list
 pages = []
+
 
 # Custom Duplicate Checker
 def duplicate_checker(values):
