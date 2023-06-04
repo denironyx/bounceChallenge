@@ -30,3 +30,7 @@ What is happening within the script:
 - Finally, I order the results by category and total sales in descending order.
 
 In all, this query identify the top selling products in each category over the past week, but only for the customers who registered within the past year. It also ensures that only categories with total sales less than 100 units.
+
+## Part 3
+
+![](imgs/Screenshot_685.png)
