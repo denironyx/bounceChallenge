@@ -10,7 +10,7 @@
 import pandas as pd
 import requests
 ```
-3. Write your first scraper by adding yourr github_token the class  `scraper = GitHubScraper(user_account='bounceapp', github_token='xxxx_token')`
+3. Run your scraper by adding yourr github_token to the `scripts/github_repo_extract_main.py` script. This is how it should look `scraper = GitHubScraper(user_account='bounceapp', github_token='xxxx_token')`
 4. Now you have the scraper class, you can decided to read the extracted data to dataframe before exporting it. You can do so by saving the dataframe to df `df = scraper.scrape_github_data()`
 5. Now you are ready to export the data `scraper.scrape_and_export('data/github_data.csv')`
 
