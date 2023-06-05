@@ -1,0 +1,4 @@
+pandas==1.5.2
+prefect==2.7.7
+pyarrow==10.0.1
+requests

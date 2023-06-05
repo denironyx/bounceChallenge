@@ -1,1 +1,4 @@
 env/
+scripts/github_repo_extract_prefect.py
+scripts/github_repo.sh
+

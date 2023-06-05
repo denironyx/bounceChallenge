@@ -1,7 +1,6 @@
 # Import Libraries
 import requests
 import pandas as pd
-import sys
 
 # To Do:
 # - Create a class
@@ -111,7 +110,7 @@ class GitHubScraper:
         df = self.duplicate_checker(df)
         self.export_to_csv(df, filename)
 
-scraper = GitHubScraper(user_account='bounceapp', github_token='xxxx_token')
+scraper = GitHubScraper(user_account='bounceapp', github_token='xxxxxx')
 scraper.scrape_and_export('data/github_data.csv')
 
 scraper.scrape_github_data()
