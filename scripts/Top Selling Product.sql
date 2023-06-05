@@ -2,46 +2,46 @@ WITH weekly_sales AS (
     SELECT
         p.category,
         o.product_id,
-        o.customer_id,
         SUM(o.quantity) AS total_sales
     FROM
         orders o
         JOIN products p ON o.product_id = p.product_id
+        JOIN customers c ON o.customer_id = c.customer_id
     WHERE
-        o.order_time >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 WEEK) -- Filter for the last week
+        o.order_time >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) -- Filter for the last week
+        AND c.registration_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) -- Filter for customers registered in the past year
     GROUP BY
         p.category,
-        o.product_id,
-        o.customer_id
-), top_products AS (
+        o.product_id
+),
+category_sales AS (
     SELECT
         category,
         product_id,
-        customer_id,
         total_sales,
-        ROW_NUMBER() OVER (PARTITION BY category ORDER BY total_sales DESC) AS ranks
+        ROW_NUMBER() OVER (PARTITION BY category ORDER BY total_sales DESC) AS rn
     FROM
         weekly_sales
-    WHERE
-       total_sales >= 100 -- Filter for categories with total sales >= 100 units
-), recent_customers AS (
+),
+filtered_categories AS (
     SELECT
-        customer_id
+        category
     FROM
-        customers
-    WHERE
-        customer_datetime >= DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR) -- Filter for customers registered in the past year
-) 
-	SELECT
-		p.category,
-		p.product_name,
-		tp.total_sales
-	FROM
-		top_products tp
-		JOIN products p ON tp.product_id = p.product_id
-		JOIN recent_customers rc ON tp.customer_id = rc.customer_id
-	WHERE
-		tp.ranks <= 3 -- Retrieve the top 3 products in each category
-	ORDER BY
-		p.category,
-		tp.total_sales DESC;
+        weekly_sales
+    GROUP BY
+        category
+    HAVING
+        SUM(total_sales) < 100
+)
+SELECT
+    cs.category,
+    cs.product_id,
+    cs.total_sales
+FROM
+    category_sales cs
+    JOIN filtered_categories fc ON cs.category = fc.category
+WHERE
+    cs.rn <= 3 -- Retrieve the top 3 products in each category
+ORDER BY
+    cs.category,
+    cs.total_sales DESC;
